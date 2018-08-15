@@ -1,0 +1,1 @@
+Magento_ProductLinksSampleDataVenia module consists of installation scripts to add related, cross sell, and upsell data to Venia products.

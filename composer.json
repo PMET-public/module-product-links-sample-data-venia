@@ -1,0 +1,21 @@
+{
+    "name": "magento/module-product-links-sample-data-venia",
+    "description": "N/A",
+    "require": {
+        "magento/module-catalog-sample-data-venia": "*",
+        "magento/module-configurable-sample-data-venia": "*"
+    },
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\ProductLinksSampleDataVenia\\": ""
+        }
+    }
+}
