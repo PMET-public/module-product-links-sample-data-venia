@@ -4,51 +4,47 @@
  * See COPYING.txt for license details.
  */
 
-namespace Magento\ProductLinksSampleData\Setup\Patch\Data;
+namespace Magento\ProductLinksSampleDataVenia\Setup\Patch\Data;
 
-use Magento\Framework\Setup;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
-use Magento\Framework\Setup\Patch\PatchVersionInterface;
+use Magento\Framework\Setup\Patch\SchemaPatchInterface;
+use Magento\Framework\Setup\Patch\PatchRevertableInterface;
+use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\ProductLinksSampleDataVenia\Setup\ProductLink;
 
 /**
- * Class InstallProductLinksSampleData
- * @package Magento\ProductLinksSampleData\Setup\Patch\Data
- */
-class InstallProductLinksSampleData implements DataPatchInterface, PatchVersionInterface
+* Patch is mechanism, that allows to do atomic upgrade data changes
+*/
+class InstallProductLinksSampleData implements
+    DataPatchInterface
 {
     /**
-     * @var Setup\SampleData\Executor
+     * @var ModuleDataSetupInterface $moduleDataSetup
      */
-    protected $executor;
-
-    /**
-     * @var \Magento\ProductLinksSampleData\Setup\Installer
-     */
-    protected $installer;
+    private $moduleDataSetup;
 
     /** @var ProductLink  */
     protected $productLink;
 
     /**
      * InstallProductLinksSampleData constructor.
-     * @param Setup\SampleData\Executor $executor
+     * @param ModuleDataSetupInterface $moduleDataSetup
      * @param ProductLink $productLink
      */
-    public function __construct(
-        Setup\SampleData\Executor $executor,
-        ProductLink $productLink
-    ) {
-        $this->executor = $executor;
-        $this->installer = $installer;
+    public function __construct(ModuleDataSetupInterface $moduleDataSetup, ProductLink $productLink)
+    {
+        $this->moduleDataSetup = $moduleDataSetup;
         $this->productLink = $productLink;
     }
 
     /**
-     * {@inheritdoc}
+     * Do Upgrade
+     *
+     * @return void
      */
     public function apply()
     {
+        print 'howdy';
         $this->productLink->install(
             ['Magento_ProductLinksSampleDataVenia::fixtures/Catalog/related.csv'],
             ['Magento_ProductLinksSampleDataVenia::fixtures/Catalog/upsell.csv'],
@@ -59,24 +55,18 @@ class InstallProductLinksSampleData implements DataPatchInterface, PatchVersionI
     /**
      * {@inheritdoc}
      */
-    public static function getDependencies()
-    {
-        return [];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getVersion()
-    {
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getAliases()
     {
         return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDependencies()
+    {
+        return [
+
+        ];
     }
 }
