@@ -7,10 +7,9 @@
 namespace Magento\ProductLinksSampleDataVenia\Setup\Patch\Data;
 
 use Magento\Framework\Setup\Patch\DataPatchInterface;
-use Magento\Framework\Setup\Patch\SchemaPatchInterface;
-use Magento\Framework\Setup\Patch\PatchRevertableInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\ProductLinksSampleDataVenia\Setup\ProductLink;
+use Magento\ProductLinksSampleDataVenia\Setup\SetSession;
 
 /**
 * Patch is mechanism, that allows to do atomic upgrade data changes
@@ -31,7 +30,7 @@ class InstallProductLinksSampleData implements
      * @param ModuleDataSetupInterface $moduleDataSetup
      * @param ProductLink $productLink
      */
-    public function __construct(ModuleDataSetupInterface $moduleDataSetup, ProductLink $productLink)
+    public function __construct( SetSession $setSession,ModuleDataSetupInterface $moduleDataSetup, ProductLink $productLink)
     {
         $this->moduleDataSetup = $moduleDataSetup;
         $this->productLink = $productLink;
@@ -44,11 +43,15 @@ class InstallProductLinksSampleData implements
      */
     public function apply()
     {
-        print 'howdy';
         $this->productLink->install(
-            ['Magento_ProductLinksSampleDataVenia::fixtures/Catalog/related.csv'],
-            ['Magento_ProductLinksSampleDataVenia::fixtures/Catalog/upsell.csv'],
-            ['Magento_ProductLinksSampleDataVenia::fixtures/Catalog/crossell.csv']
+            ['Magento_ProductLinksSampleDataVenia::fixtures/Simple/related.csv'],
+            ['Magento_ProductLinksSampleDataVenia::fixtures/Simple/upsell.csv'],
+            ['Magento_ProductLinksSampleDataVenia::fixtures/Simple/crosssell.csv']
+        );
+        $this->productLink->install(
+            ['Magento_ProductLinksSampleDataVenia::fixtures/Configurable/related.csv'],
+            ['Magento_ProductLinksSampleDataVenia::fixtures/Configurable/upsell.csv'],
+            ['Magento_ProductLinksSampleDataVenia::fixtures/Configurable/crosssell.csv']
         );
     }
 
